@@ -1,0 +1,28 @@
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather {
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 3.5em;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.temp {
+  font-size: 50px;
+  padding-bottom: 0;
+  margin: 15px 0;
+}
+
+.input-section {
+  text-align: center;
+}
