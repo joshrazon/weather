@@ -1,4 +1,4 @@
-# [Calgary Weather App](https://greensock-animations.firebaseapp.com/#/)
+# [Calgary Weather App](https://http://razon-josh.me/react-weather/)
 
 App that shows the current weather in Calgary, AB
 
