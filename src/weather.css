@@ -17,6 +17,10 @@
   background-color: #fff;
 }
 
+.weather h3 {
+  text-transform: capitalize;
+}
+
 .temp {
   font-size: 50px;
   padding-bottom: 0;
@@ -25,4 +29,10 @@
 
 .input-section {
   text-align: center;
+}
+
+.search-box input {
+  text-align: center;
+  padding: 5px;
+  font-size: 16px;
 }
