@@ -1,6 +1,6 @@
 # [Calgary Weather App](https://http://razon-josh.me/react-weather/)
 
-App that shows the current weather in Calgary, AB
+App that shows the current weather in any city
 
 Project [Link](http://razon-josh.me/react-weather/)
 
