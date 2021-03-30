@@ -1,4 +1,4 @@
-# [Calgary Weather App](https://joshrazon.github.io/react-weather/)
+# [Weather App](https://joshrazon.github.io/react-weather/)
 
 App that shows the current weather in any city
 
