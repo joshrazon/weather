@@ -32,11 +32,6 @@ function App() {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: 'url(./weather-app-bg.jpg)',
-    backgroundPosition: 'center bottom',
-    backgroundSize: 'cover',
-
-
     backgroundImage: 'url(' + changeBg() + ')',
     backgroundPosition: 'center bottom',
     backgroundSize: 'cover',
