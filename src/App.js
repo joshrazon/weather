@@ -82,7 +82,10 @@ function App() {
               loading ? 'Loading...' : Math.round(Number(JSON.stringify(main.temp)))
             }&deg;c
           </span>
-          <p>25&deg;c / 28&deg;c</p>
+          <p>
+            <span>{loading ? '--' : `${Math.round(main['temp_min'])}`}&deg;c / </span>
+            <span>{loading ? '--' : `${Math.round(main['temp_max'])}`}&deg;c</span>
+          </p>
         </div>
         {/* input for which city weather you want to display */}
         <SearchBox updateCity={setCity} />
