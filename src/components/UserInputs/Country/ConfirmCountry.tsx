@@ -1,42 +1,12 @@
-import {
-  Select,
-  MenuItem,
-  makeStyles,
-  createStyles,
-  Theme,
-  Typography,
-  InputLabel,
-  Button,
-} from '@material-ui/core';
-import { useState, useEffect } from 'react';
+import { Select, MenuItem, Typography, InputLabel, Button } from '@material-ui/core';
+import { useState } from 'react';
 import { CountryCode } from '../../../App/types';
+import { useStyles } from '../../../utils/useStyles';
 
 type Props = {
   countryCodes: CountryCode[];
   confirm: Function;
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    select: {
-      width: '95%',
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginTop: theme.spacing(3),
-    },
-    label: {
-      fontSize: '12px',
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginTop: theme.spacing(1),
-    },
-    button: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginTop: theme.spacing(3),
-    },
-  })
-);
 
 function ConfirmCountry({ countryCodes, confirm }: Props) {
   const classes = useStyles();

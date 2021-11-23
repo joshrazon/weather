@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { useStyles } from '../../../utils/useStyles';
 
 type Props = {
   userInput: string;
@@ -7,14 +8,6 @@ type Props = {
   disabled: boolean;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-  })
-);
 function City({ userInput, setUserInput, disabled }: Props) {
   const classes = useStyles();
 

@@ -1,27 +1,12 @@
 import * as React from 'react';
-import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { useStyles } from '../../../utils/useStyles';
 
 type Props = {
   userInput: string;
   setUserInput: Function;
   disabled: boolean;
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-    error: {
-      color: 'red',
-      fontSize: '12px',
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginTop: theme.spacing(1),
-    },
-  })
-);
 
 function Country({ userInput, setUserInput, disabled }: Props) {
   const classes = useStyles();

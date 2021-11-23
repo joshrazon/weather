@@ -6,30 +6,7 @@ import { useState } from 'react';
 import { Weather, Location } from './types';
 import { fetchWeather } from '../utils';
 import Loading from '../components/Loading/Loading';
-
-const useStyles = makeStyles((theme) => ({
-  layout: {
-    height: '100vh',
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    width: 'max-content',
-  },
-  cardLayout: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-}));
+import { useStyles } from '../utils/useStyles';
 
 export default function App() {
   const { main } = weatherData;
@@ -57,10 +34,10 @@ export default function App() {
       let newLocation: Location = { city: data.name, country: data.sys.country };
       setLocation(newLocation);
       setWeather(data.main);
-      return setLoading(false);
     } else {
-      return console.log(data.message);
+      console.log(data.message);
     }
+    return setLoading(false);
   };
 
   const handleLoading = () => {
@@ -87,9 +64,3 @@ export default function App() {
     </div>
   );
 }
-
-/**
- * name
- * sys.country
- * main
- */

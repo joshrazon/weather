@@ -1,59 +1,18 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  CardContent,
-  Typography,
-  Theme,
-  createStyles,
-  Grid,
-} from '@material-ui/core';
+import { CardContent, Typography, Grid } from '@material-ui/core';
 import { Weather, Location } from '../../App/types';
+import { useStyles } from '../../utils/useStyles';
 
 interface Props {
   weather: Weather;
   location: Location;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      minWidth: 275,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    city: {
-      marginBottom: theme.spacing(3),
-    },
-    pos: {
-      marginBottom: 12,
-    },
-    layout: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    temp: {
-      fontSize: '45px',
-    },
-  })
-);
-
 export default function WeatherPanel({ weather, location }: Props) {
   const classes = useStyles();
   if (!weather) {
     return (
-      <CardContent className={classes.container}>
+      <CardContent className={classes.cardContentContainer}>
         <Typography component="h4">City not found</Typography>
       </CardContent>
     );
@@ -62,7 +21,7 @@ export default function WeatherPanel({ weather, location }: Props) {
   const { country, city } = location;
   return (
     <>
-      <CardContent className={classes.container}>
+      <CardContent className={classes.cardContentContainer}>
         <Typography
           className={classes.city}
           color="textPrimary"

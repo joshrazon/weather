@@ -12,29 +12,11 @@ import { ConfirmCountry, Country } from './Country';
 import { City } from './City';
 import { findCountryCode, validate } from '../../utils';
 import { CountryCode } from '../../App/types';
+import { useStyles } from '../../utils/useStyles';
 
 type Props = {
   requestWeather: Function;
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-    button: {
-      display: 'none',
-    },
-    error: {
-      color: 'red',
-      fontSize: '12px',
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginTop: theme.spacing(1),
-    },
-  })
-);
 
 function UserInputs({ requestWeather }: Props) {
   const [city, setCity] = useState<string>('');
@@ -69,7 +51,7 @@ function UserInputs({ requestWeather }: Props) {
         let countryCode = countryCodes[0].Code;
         setCountry(countryCode);
         toggleCountryError(false);
-        return requestWeather(validate(city), countryCode);
+        return requestWeather(city, countryCode);
       }
 
       default: {
@@ -102,7 +84,7 @@ function UserInputs({ requestWeather }: Props) {
           setUserInput={setCountry}
           disabled={foundCountries.length > 1}
         />
-        <button type="submit" className={classes.button}>
+        <button type="submit" className={classes.submitButton}>
           submit
         </button>
       </form>
