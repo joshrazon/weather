@@ -1,18 +1,17 @@
 import * as React from 'react';
-import { useState } from 'react';
 import {
   makeStyles,
   CardContent,
   Typography,
-  Button,
   Theme,
   createStyles,
+  Grid,
 } from '@material-ui/core';
-import { Weather } from '../../App/types';
-import { findCountryCode } from '../../App/utils/http-requests';
+import { Weather, Location } from '../../App/types';
 
 interface Props {
   weather: Weather;
+  location: Location;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,8 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0 2px',
       transform: 'scale(0.8)',
     },
-    title: {
-      fontSize: 14,
+    city: {
+      marginBottom: theme.spacing(3),
     },
     pos: {
       marginBottom: 12,
@@ -39,42 +38,66 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    temp: {
+      fontSize: '45px',
+    },
   })
 );
 
-export default function WeatherPanel({ weather }: Props) {
+export default function WeatherPanel({ weather, location }: Props) {
   const classes = useStyles();
+  if (!weather) {
+    return (
+      <CardContent className={classes.container}>
+        <Typography component="h4">City not found</Typography>
+      </CardContent>
+    );
+  }
   const { temp, temp_max, temp_min, feels_like, pressure, humidity } = weather;
-
+  const { country, city } = location;
   return (
     <>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Temp:
+      <CardContent className={classes.container}>
+        <Typography
+          className={classes.city}
+          color="textPrimary"
+          variant="h3"
+          component="h3"
+        >
+          {city}
         </Typography>
         <Typography variant="h2" component="h2">
-          {temp}
+          {Math.round(temp) || '-'}&#176;
+          <span className={classes.temp}>C</span>
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Feels Like: {feels_like}
+          Feels Like: {feels_like} &#176; C
         </Typography>
       </CardContent>
       <CardContent>
-        <Typography variant="body2" component="p">
-          Min: {temp_min}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Max: {temp_max}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Pressure: {pressure}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Humidity: {humidity}
-        </Typography>
-        <Button variant="contained" onClick={() => findCountryCode('korea')}>
-          Log Country Code
-        </Button>
+        <Grid container>
+          <Grid item xs={6}>
+            <Typography variant="body2" component="p" align="center">
+              Min: {temp_min || '-'} &#176; C
+            </Typography>
+            <Typography variant="body2" component="p" align="center">
+              Max: {temp_max || '-'} &#176; C
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body2" component="p" align="center">
+              Pressure: {pressure || '-'}
+            </Typography>
+            <Typography variant="body2" component="p" align="center">
+              Humidity: {humidity || '-'}
+            </Typography>
+          </Grid>
+        </Grid>
       </CardContent>
     </>
   );
