@@ -8,11 +8,14 @@ import {
 
 import * as React from 'react';
 import { useState } from 'react';
-import ConfirmCountry from './ConfirmCountry';
-import { findCountryCode } from '../../App/utils/http-requests';
-import { Weather, CountryCode } from '../../App/types';
+import { ConfirmCountry, Country } from './Country';
 import { City } from './City';
-import { Country } from './Country';
+import { findCountryCode, validate } from '../../utils';
+import { CountryCode } from '../../App/types';
+
+type Props = {
+  requestWeather: Function;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,52 +36,57 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function UserInputs() {
+function UserInputs({ requestWeather }: Props) {
   const [city, setCity] = useState<string>('');
   const [country, setCountry] = useState<string>('');
   const [foundCountries, setFoundCountries] = useState<CountryCode[]>([]);
   const [countryError, setCountryError] = useState<boolean>(false);
+  const [characterError, setCharacterError] = useState<boolean>(false);
 
   const classes = useStyles();
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let countryResult: CountryCode[] = findCountryCode(country);
-    let cityResult: string = formatCityUserInput(city);
+    let cityInput = validate(city);
+    let countryInput = validate(country);
 
-    switch (countryResult.length) {
+    if (typeof cityInput === 'string' && typeof countryInput === 'string') {
+      return processCountryInput(countryInput);
+    } else {
+      return setCharacterError(true);
+    }
+  };
+
+  const processCountryInput = (countryInput: string) => {
+    let countryCodes = findCountryCode(countryInput);
+    switch (countryCodes.length) {
       case 0: {
-        showCountryError();
-        return console.log('no country codes found');
+        console.log('no country codes found');
+        return toggleCountryError(true);
       }
 
       case 1: {
-        let code = countryResult[0].Code;
-        console.log('City and country code:', cityResult, code);
-        return setCountry(code);
+        let countryCode = countryCodes[0].Code;
+        setCountry(countryCode);
+        toggleCountryError(false);
+        return requestWeather(validate(city), countryCode);
       }
 
       default: {
-        console.log('Found country codes:', countryResult);
-        return setFoundCountries(countryResult);
+        console.log('Found country codes:', countryCodes);
+        return setFoundCountries(countryCodes);
       }
     }
   };
 
-  const showCountryError = () => {
-    setCountryError(true);
+  const toggleCountryError = (show: boolean) => {
+    setCountryError(show);
   };
 
-  const formatCityUserInput = (userInput: string) => {
-    let trimmed = userInput.trim();
-    let removedSpaces = trimmed.replace(/\s/g, '');
-
-    return removedSpaces;
-  };
-
-  const onConfirmCountry = (countryCode: string) => {
-    console.log('City and country code: ', city, countryCode);
-    return setCountry(countryCode);
+  const onConfirmCountry = (countryCode: CountryCode) => {
+    console.log('confirm country code', countryCode);
+    setFoundCountries([countryCode]);
+    return requestWeather(city, countryCode);
   };
 
   return (
@@ -101,6 +109,11 @@ function UserInputs() {
       {countryError && (
         <Typography className={classes.error}>
           Country not found, please specify a different country
+        </Typography>
+      )}
+      {characterError && (
+        <Typography className={classes.error}>
+          Inputs should only contain alphabet characters
         </Typography>
       )}
       <ConfirmCountry countryCodes={foundCountries} confirm={onConfirmCountry} />
