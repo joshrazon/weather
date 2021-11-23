@@ -11,3 +11,8 @@ export interface CountryCode {
   Code: string;
   Name: string;
 }
+
+export interface Location {
+  city: string;
+  country: string;
+}
