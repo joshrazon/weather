@@ -1,7 +1,28 @@
 import { Select, MenuItem, Typography, InputLabel, Button } from '@material-ui/core';
 import { useState } from 'react';
 import { CountryCode } from '../../../App/types';
-import { useStyles } from '../../../utils/useStyles';
+// import { useStyles } from '../../../utils/useStyles';
+import { makeStyles, Theme } from '@material-ui/core';
+
+export const useStyles = makeStyles((theme: Theme) => ({
+  select: {
+    width: '95%',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
+  label: {
+    fontSize: '12px',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(1),
+  },
+  button: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
+}));
 
 type Props = {
   countryCodes: CountryCode[];
