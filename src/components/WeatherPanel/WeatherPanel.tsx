@@ -10,13 +10,7 @@ interface Props {
 
 export default function WeatherPanel({ weather, location }: Props) {
   const classes = useStyles();
-  if (!weather) {
-    return (
-      <CardContent className={classes.cardContentContainer}>
-        <Typography component="h4">City not found</Typography>
-      </CardContent>
-    );
-  }
+
   const { temp, temp_max, temp_min, feels_like, pressure, humidity } = weather;
   const { country, city } = location;
   return (
@@ -50,10 +44,10 @@ export default function WeatherPanel({ weather, location }: Props) {
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body2" component="p" align="center">
-              Pressure: {pressure || '-'}
+              Pressure: {pressure || '-'} mb
             </Typography>
             <Typography variant="body2" component="p" align="center">
-              Humidity: {humidity || '-'}
+              Humidity: {humidity || '-'} %
             </Typography>
           </Grid>
         </Grid>
